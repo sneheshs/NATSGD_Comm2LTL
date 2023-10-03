@@ -13,6 +13,7 @@ NatSGD Dataset Human Communication to Linear Temporal Logic (Comm2LTL) Benchmark
   - [3.2. Gesture Only Models](#32-gesture-only-models)
   - [3.3. Speech + Gesture Models](#33-speech--gesture-models)
 - [4. Spot Score Calculation](#4-spot-score-calculation)
+- [5. Results](#5-results)
 
 
 ## 1. Download Dataset files
@@ -66,6 +67,19 @@ input_file =  input_folder + '/test_data_epoch_100.txt'
 
 2. Run `calc_spot_score.py` to compute the total score for this prediction set.
 
+## 5. Results
+
+| Model (using BART)   | Jaq Sim &uarr; | Spot Score &uarr; |
+| :------------------- | :-------: | ----------: |
+| Speech Only          |   0.934   |    0.434    |
+| Gestures Only        |   0.922   |    0.299    |
+| Speech + Gestures    | **0.944** |  **0.588**  |
+
+| Model (using T5)   | Jaq Sim &uarr; | Spot Score &uarr; |
+| :------------------- | :-------: | ----------: |
+| Speech Only          |   0.917   |    0.299    |
+| Gestures Only        |   0.948   |    0.244    |
+| Speech + Gestures    | **0.961** |  **0.507**  |
+
 
 For any additional information or inquiries, please feel free to contact us. Thank you for using NatSGD dataset and Comm2LTL benchmarking!
-
