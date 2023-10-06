@@ -10,14 +10,14 @@ class HiddenLSTMEncoderDecoder(nn.Module):
     def __init__(self, input_dim, latent_dim, device):
         super(HiddenLSTMEncoderDecoder, self).__init__()
 
-        self.num_layers = 1
+        self.num_layers = 2
 
         self.device = device
         # Encoder
-        self.encoder = nn.LSTM(input_dim, latent_dim, num_layers=self.num_layers, bidirectional=True, batch_first=True)
+        self.encoder = nn.LSTM(input_dim, latent_dim, num_layers=self.num_layers, batch_first=True)
 
         # Decoder
-        self.decoder = nn.LSTM(input_dim, latent_dim, num_layers=self.num_layers, bidirectional=True, batch_first=True)
+        self.decoder = nn.LSTM(input_dim, latent_dim, num_layers=self.num_layers, batch_first=True)
 
         self.hidden_to_embed = nn.Linear(latent_dim, input_dim)
 
@@ -39,7 +39,6 @@ class HiddenLSTMEncoderDecoder(nn.Module):
         return hidden
 
     def _step(self, input, hidden):
-        print([input.size()])
         output, hidden = self.decoder(input, hidden)
 
         output = self.hidden_to_embed(output.squeeze())
@@ -60,7 +59,6 @@ class HiddenLSTMEncoderDecoder(nn.Module):
         outputs = torch.zeros((self.batch_size, seq_len, features)).to(self.device)
 
         input = x[:, -1:, :]
-       
         for i in range(seq_len):
             output, hidden = self._step(input, hidden)
             outputs[:, i:i + 1, :] = output.unsqueeze(1)
